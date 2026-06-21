@@ -1,0 +1,17 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+dist/
+output/
+*.html
+!core/template/shell.html
+!examples/**/*.html
+
+# Working lesson artifacts (curated samples go under examples/ instead)
+/analysis.json
+/*.analysis.json
+
+.vii/
