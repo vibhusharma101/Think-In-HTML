@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Think-In-HTML Analysis",
+  "description": "The contract between LLM analysis and the renderer shell.",
+  "type": "object",
+  "required": ["schemaVersion", "meta", "summary", "nodes", "edges", "walkthrough", "diagram"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "meta": {
+      "type": "object",
+      "required": ["title", "mode", "source", "generatedAt"],
+      "properties": {
+        "title": { "type": "string" },
+        "mode": { "enum": ["code", "thinking", "text"] },
+        "source": { "type": "string", "description": "What was analyzed (file path, repo name, etc.)" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "audience": { "enum": ["beginner", "dev"], "default": "beginner" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["plain"],
+      "properties": {
+        "plain": { "type": "string" },
+        "technical": { "type": "string" }
+      }
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "plain"],
+        "properties": {
+          "term": { "type": "string" },
+          "plain": { "type": "string" },
+          "technical": { "type": "string" }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "kind", "plain"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "kind": { "enum": ["file", "function", "step", "section", "class", "module"] },
+          "plain": { "type": "string" },
+          "technical": { "type": "string" },
+          "code": { "type": "string" },
+          "lang": { "type": "string" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "kind"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "kind": { "enum": ["calls", "imports", "leadsTo", "contains", "returns"] },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "walkthrough": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "narration", "focusNodeId"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "narration": { "type": "string" },
+          "focusNodeId": { "type": "string" },
+          "highlights": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "quiz": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["q", "choices", "answer", "explain"],
+        "properties": {
+          "q": { "type": "string" },
+          "choices": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "answer": { "type": "integer", "minimum": 0 },
+          "explain": { "type": "string" }
+        }
+      }
+    },
+    "diagram": {
+      "type": "object",
+      "required": ["type", "rootNodeId"],
+      "properties": {
+        "type": { "enum": ["flow", "tree", "sequence"] },
+        "rootNodeId": { "type": "string" }
+      }
+    }
+  }
+}

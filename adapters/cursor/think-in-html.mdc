@@ -1,0 +1,16 @@
+---
+description: Generate an interactive HTML explainer from code, thinking transcripts, or text.
+globs:
+alwaysApply: false
+---
+
+# Think-In-HTML
+
+When the user asks to generate an interactive HTML explainer, follow these steps:
+
+1. Read `core/instructions/ANALYZE.md` and the relevant `core/instructions/mode-*.md` from the Think-In-HTML project root.
+2. Analyze the target input following those instructions.
+3. Output the analysis as a JSON object conforming to `core/schema/analysis.schema.json`.
+4. Save the JSON to `analysis.json` in the project root.
+5. Run `node core/build/inline.mjs analysis.json -o output.html` to produce the final file.
+6. Report the output path to the user.
