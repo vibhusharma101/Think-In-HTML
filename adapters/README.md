@@ -1,27 +1,39 @@
-# Adding Think-In-HTML to any AI coding tool
+# Tool Adapters
 
-Think-In-HTML works with any AI tool that can read files and run shell commands. Each adapter is a thin config file that tells the tool *how* to use the core engine.
+This folder contains **reference copies** and installation guides for each supported AI coding tool. The working versions live in the tool-specific locations (`.claude/commands/`, `.cursor/rules/`, etc.).
 
-## 3-step integration
+## Supported tools
 
-1. **Point the tool at the instructions.** Have it read `core/instructions/ANALYZE.md` plus the relevant mode file (`mode-code.md`, `mode-thinking.md`, or `mode-text.md`).
+| Tool | Working location | Reference |
+|------|-----------------|-----------|
+| Claude Code | `.claude/commands/think-in-html.md` | [claude-code/](claude-code/) |
+| Cursor | `.cursor/rules/think-in-html.mdc` | [cursor/](cursor/) |
+| Codex | Appended to `AGENTS.md` | [codex/](codex/) |
 
-2. **Have it analyze the target.** The tool reads the input and outputs a JSON object conforming to `core/schema/analysis.schema.json`. Save it as `analysis.json`.
+## Automatic installation
 
-3. **Build the HTML.** Run:
-   ```
-   node core/build/inline.mjs analysis.json -o output.html
-   ```
-   Or have the agent inline the JSON into `core/template/shell.html` directly (replace `{{ANALYSIS_JSON}}`, `{{STYLES}}`, `{{APP_JS}}` with the contents of the template files).
+Run `install.sh` from your project root — it detects which tools you use and copies the right files:
 
-## Existing adapters
+```bash
+# From a cloned Think-In-HTML repo:
+cd /your/project
+/path/to/Think-In-HTML/install.sh
 
-| Tool | File | How to use |
-|------|------|------------|
-| Claude Code | `claude-code/SKILL.md` | Install as a skill in `.claude/commands/` |
-| Cursor | `cursor/think-in-html.mdc` | Add to `.cursor/rules/` |
-| Codex | `codex/AGENTS.md` | Add to your project's `AGENTS.md` |
+# Or one-liner (curl):
+curl -fsSL https://raw.githubusercontent.com/vibhusharma101/Think-In-HTML/main/install.sh | bash
+```
 
-## Writing a new adapter
+## Adding a new tool
 
-Copy any existing adapter and adjust the tool-specific format. The core logic (what to analyze, how to output JSON, how to build) stays the same — only the "how to tell *this* tool to do it" wrapper changes.
+To support a new AI coding tool:
+
+1. Create a folder under `adapters/` with the tool name
+2. Write an adapter that tells the tool to:
+   - Read `core/instructions/ANALYZE.md` + the relevant mode file
+   - Produce JSON conforming to `core/schema/analysis.schema.json`
+   - Run `node core/build/inline.mjs analysis.json -o output.html`
+3. Also place the working version in the tool's expected location (e.g., `.windsurf/rules/`)
+4. Update `install.sh` to detect and install it
+5. Open a PR
+
+The adapter is always thin — it only tells the tool *where to find the instructions*. All logic lives in `core/`.

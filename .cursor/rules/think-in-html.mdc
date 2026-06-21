@@ -1,0 +1,31 @@
+---
+description: Generate an interactive HTML explainer from code, thinking transcripts, or text. Use when the user asks to explain code visually, create an interactive walkthrough, or generate a Think-In-HTML output.
+globs:
+alwaysApply: false
+---
+
+# Think-In-HTML
+
+When the user asks to generate an interactive HTML explainer, follow these steps:
+
+1. **Read the instructions.** Read these files from the project root:
+   - `core/instructions/ANALYZE.md` — universal analysis rules
+   - `core/instructions/mode-code.md` (or `mode-thinking.md` / `mode-text.md` depending on input type)
+
+2. **Read the schema.** Read `core/schema/analysis.schema.json` to understand the output contract.
+
+3. **Analyze the target.** Read the target file(s) and produce an analysis following the instructions.
+
+4. **Write analysis.json.** Save the analysis as valid JSON conforming to the schema.
+
+5. **Build the HTML.** Run: `node core/build/inline.mjs analysis.json -o output.html`
+
+6. **Report.** Tell the user where the output file is.
+
+## Rules
+- JSON must conform to `core/schema/analysis.schema.json` (schemaVersion: 1)
+- `plain` fields use teacher voice — explain like the reader has never seen code before
+- `technical` fields are optional — only include when there's meaningful extra detail
+- Never include raw HTML in text fields — all content must be safe for textContent injection
+- Keep walkthrough linear and narrated — each step feels like "and then..."
+- Quiz questions test understanding, not trivia. Always explain the answer.
