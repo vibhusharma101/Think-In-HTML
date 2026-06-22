@@ -144,6 +144,10 @@ Want to add support for a new AI tool? See [adapters/README.md](adapters/README.
 
 Want to add a new mode (e.g., "database schema explorer")? Write a `mode-*.md` instruction file and extend the schema. See [the schema](core/schema/analysis.schema.json) and existing mode files for the pattern.
 
+## Maintainers
+
+Publishing a new version to npm? See [PUBLISHING.md](PUBLISHING.md).
+
 ## License
 
 [MIT](LICENSE)
