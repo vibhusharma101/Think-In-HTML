@@ -6,11 +6,16 @@ This is the reference copy of the Cursor rule. The **working version** lives at 
 
 Cursor loads rules from `.cursor/rules/` in your project root. When the rule's description matches the user's intent (e.g., "explain this code interactively"), Cursor activates it.
 
-## Manual installation (if not using install.sh)
+## Installation
 
-1. Copy the `core/` folder into your project (e.g., as `think-in-html/core/`)
-2. Copy `.cursor/rules/think-in-html.mdc` into your project's `.cursor/rules/`
-3. Update paths inside the rule file if you placed `core/` in a subdirectory
+Recommended — wire the adapter automatically:
+
+```bash
+npx think-in-html init
+```
+
+This writes `.cursor/rules/think-in-html.mdc` pointing at the `npx think-in-html` CLI.
+Nothing is copied into your repo.
 
 ## Usage
 

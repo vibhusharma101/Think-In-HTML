@@ -32,40 +32,39 @@ The output is **one `.html` file**. No server. No build step. Drag it into a bro
 
 ## Install
 
-### One-liner (recommended)
+### With npm / npx (recommended)
 
-Run this from your project root:
+No install needed — run it on demand with `npx` (requires [Node.js](https://nodejs.org) ≥ 18):
+
+```bash
+# Wire the AI adapter into your current project (auto-detects Claude Code, Cursor, Codex)
+npx think-in-html init
+```
+
+Or install it globally to use the `think-in-html` command anywhere:
+
+```bash
+npm install -g think-in-html
+```
+
+That's the whole setup. The package contains the engine; your AI tool calls it via
+`npx think-in-html` under the hood — nothing is copied into your repo.
+
+### CLI commands
+
+```bash
+think-in-html init                                   # wire the adapter into this project
+think-in-html instructions code                      # print the analysis guide (code|thinking|text)
+think-in-html build analysis.json -o output.html     # build a lesson from an analysis file
+think-in-html --help
+```
+
+### Without npm (curl one-liner)
+
+No Node? This copies the engine + adapter into your project:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/vibhusharma101/Think-In-HTML/main/install.sh | bash
-```
-
-This automatically:
-1. Copies the core engine into `think-in-html/` in your project
-2. Detects which AI tools you use (Claude Code, Cursor, Codex)
-3. Installs the right adapter for each
-
-### Manual install
-
-```bash
-# Clone the repo
-git clone https://github.com/vibhusharma101/Think-In-HTML.git
-
-# Copy the core engine into your project
-cp -r Think-In-HTML/core your-project/think-in-html/core
-
-# Then copy the adapter for your tool:
-
-# Claude Code:
-mkdir -p your-project/.claude/commands
-cp Think-In-HTML/.claude/commands/think-in-html.md your-project/.claude/commands/
-
-# Cursor:
-mkdir -p your-project/.cursor/rules
-cp Think-In-HTML/.cursor/rules/think-in-html.mdc your-project/.cursor/rules/
-
-# Codex:
-cat Think-In-HTML/adapters/codex/AGENTS.md >> your-project/AGENTS.md
 ```
 
 ## Usage
@@ -144,6 +143,10 @@ The generated HTML embeds source code into a shareable file. **Only share artifa
 Want to add support for a new AI tool? See [adapters/README.md](adapters/README.md) — it's a single thin file.
 
 Want to add a new mode (e.g., "database schema explorer")? Write a `mode-*.md` instruction file and extend the schema. See [the schema](core/schema/analysis.schema.json) and existing mode files for the pattern.
+
+## Maintainers
+
+Publishing a new version to npm? See [PUBLISHING.md](PUBLISHING.md).
 
 ## License
 
