@@ -12,14 +12,15 @@ This folder contains **reference copies** and installation guides for each suppo
 
 ## Automatic installation
 
-Run `install.sh` from your project root — it detects which tools you use and copies the right files:
+The recommended way (requires Node.js ≥ 18) auto-detects your tools and writes the adapter:
 
 ```bash
-# From a cloned Think-In-HTML repo:
-cd /your/project
-/path/to/Think-In-HTML/install.sh
+npx think-in-html init
+```
 
-# Or one-liner (curl):
+No Node? The curl one-liner copies the engine + adapter into your project instead:
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/vibhusharma101/Think-In-HTML/main/install.sh | bash
 ```
 
@@ -29,11 +30,12 @@ To support a new AI coding tool:
 
 1. Create a folder under `adapters/` with the tool name
 2. Write an adapter that tells the tool to:
-   - Read `core/instructions/ANALYZE.md` + the relevant mode file
-   - Produce JSON conforming to `core/schema/analysis.schema.json`
-   - Run `node core/build/inline.mjs analysis.json -o output.html`
-3. Also place the working version in the tool's expected location (e.g., `.windsurf/rules/`)
-4. Update `install.sh` to detect and install it
-5. Open a PR
+   - Run `npx think-in-html instructions <mode>` and follow it (it prints the analysis guide + schema)
+   - Produce JSON conforming to that schema and write it to `analysis.json`
+   - Run `npx think-in-html build analysis.json -o output.html`
+3. Add detection for the tool to the `init` command in `bin/cli.mjs`
+4. Open a PR
+
+The adapter is always thin — it only tells the tool *which CLI commands to run*. All logic lives in `core/`.
 
 The adapter is always thin — it only tells the tool *where to find the instructions*. All logic lives in `core/`.

@@ -1,0 +1,44 @@
+{
+  "name": "think-in-html",
+  "version": "1.0.0",
+  "description": "Turn code, AI thinking, or text into a single self-contained, interactive HTML lesson — composed by an AI teacher from a kit of tested teaching blocks.",
+  "type": "module",
+  "bin": {
+    "think-in-html": "bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "core/",
+    "adapters/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node core/build/inline.mjs"
+  },
+  "keywords": [
+    "interactive",
+    "html",
+    "explainer",
+    "code-explanation",
+    "education",
+    "teaching",
+    "ai",
+    "documentation",
+    "visualization",
+    "learning"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vibhusharma101/Think-In-HTML.git"
+  },
+  "homepage": "https://github.com/vibhusharma101/Think-In-HTML#readme",
+  "bugs": {
+    "url": "https://github.com/vibhusharma101/Think-In-HTML/issues"
+  },
+  "author": "Vibhu Sharma",
+  "license": "MIT"
+}

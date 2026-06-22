@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Think-In-HTML installer
+# Think-In-HTML installer (no-npm fallback)
 # Copies the core engine + tool adapter into your project.
+#
+# RECOMMENDED if you have Node.js ≥ 18: use the npm package instead —
+#   npx think-in-html init
+# This script exists for environments without Node/npm.
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/vibhusharma101/Think-In-HTML/main/install.sh | bash
